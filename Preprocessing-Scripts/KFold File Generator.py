@@ -54,10 +54,10 @@ for i in range(num_folds):
         training_set = DFrame.loc[ 0:(num_rows-1-(one_fold + remainder)-1) ]
     # The cases where the test data is sandwhiched between training data folds.
     else:
-        test_set = DFrame.loc[(i*one_fold)+1:(i+1)*one_fold] # Grab the test fold out of the middle
+        test_set = DFrame.loc[(i*one_fold)+1:(i+1)*one_fold+remainder] # Grab the test fold out of the middle
         # Now make the training set, first generate 2 sets surrounding the test fold, then concat them
         train1 = DFrame.loc[0:(i*one_fold)] # Section before the test fold
-        train2 = DFrame.loc[(i+1)*one_fold+1:(num_rows-1)] # Section after the test fold
+        train2 = DFrame.loc[(i+1)*one_fold+1+remainder:(num_rows-1)] # Section after the test fold
         training_combined_list = [train1, train2]
         training_set = pd.concat(training_combined_list)
     
